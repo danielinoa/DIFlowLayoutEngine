@@ -43,22 +43,31 @@ public struct DIFlowLayoutEngine {
         )
         var positions: [Position] = []
         for row in rows {
-            var leadingOffset = initialLeadingOffset(
-                for: row, in: bounds, alignment: horizontalAlignment, horizontalSpacing: horizontalSpacing
-            )
-            var rowPositions: [Position] = []
-            for rectangle in row.items {
-                let topOffset = topOffset(for: rectangle, aligned: verticalAlignment, within: row)
-                rowPositions.append(.init(x: leadingOffset, y: topOffset))
-                leadingOffset += rectangle.width + horizontalSpacing
-            }
-            if direction == .reverse { rowPositions.reverse() }
-            positions.append(contentsOf: rowPositions)
+            let itemPositions = self.positions(for: row, in: bounds)
+            positions.append(contentsOf: itemPositions)
         }
-        return Layout(
-            fittingHeight: totalHeight,
-            positions: positions
+        return .init(fittingHeight: totalHeight, positions: positions)
+    }
+
+    private func positions(for row: Row, in bounds: Rectangle) -> [Position] {
+        // Implementation (when direction is .reverse):
+        // A-B-C items will be reversed to C-B-A, positions will be calculated based on the items' size,
+        // and resulting positions will be reversed so that they match the corresponding items from original array.
+        let items = direction == .forward ? row.items : row.items.reversed()
+        var positions: [Position] = []
+        var leadingOffset = initialLeadingOffset(
+            for: row, in: bounds, alignment: horizontalAlignment, horizontalSpacing: horizontalSpacing
         )
+        for item in items {
+            let topOffset = topOffset(for: item, aligned: verticalAlignment, within: row)
+            positions.append(.init(x: leadingOffset, y: topOffset))
+            leadingOffset += item.width + horizontalSpacing
+        }
+        if direction == .reverse {
+            // Reverse once again so the positions' array-index match with the corresponding forwarded items.
+            positions.reverse()
+        }
+        return positions
     }
 
     // MARK: - Row Grouping
