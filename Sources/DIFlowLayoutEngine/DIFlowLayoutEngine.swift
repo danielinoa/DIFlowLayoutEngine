@@ -3,19 +3,35 @@
 public struct DIFlowLayoutEngine {
 
     /// The direction items flow within a row.
-    public var direction: Direction = .forward
+    public var direction: Direction
 
     /// The horizontal alignment of items within a row.
-    public var horizontalAlignment: HorizontalAlignment = .leading
+    public var horizontalAlignment: HorizontalAlignment
 
     /// The vertical alignment of items within a row.
-    public var verticalAlignment: VerticalAlignment = .top
+    public var verticalAlignment: VerticalAlignment
 
     /// The horizontal distance between adjacent items within a row.
-    public var horizontalSpacing: Double = .zero
+    public var horizontalSpacing: Double
 
     /// The vertical distance between adjacent rows.
-    public var verticalSpacing: Double = .zero
+    public var verticalSpacing: Double
+
+    // MARK: - Lifecycle
+
+    public init(
+        direction: Direction = .forward,
+        horizontalAlignment: HorizontalAlignment = .leading,
+        verticalAlignment: VerticalAlignment = .top,
+        horizontalSpacing: Double = .zero,
+        verticalSpacing: Double = .zero
+    ) {
+        self.direction = direction
+        self.horizontalAlignment = horizontalAlignment
+        self.verticalAlignment = verticalAlignment
+        self.horizontalSpacing = horizontalSpacing
+        self.verticalSpacing = verticalSpacing
+    }
 
     // MARK: - Layout Calculation
 
