@@ -159,12 +159,8 @@ public struct DIFlowLayoutEngine {
     public struct Rectangle: Equatable {
         var x: Double, y: Double, width: Double, height: Double
         var minY: Double { y }
-        var midY: Double { (height / 2) + y }
-        var maxY: Double { height + y }
         var minX: Double { x }
-        var midX: Double { (width / 2) + x }
         var maxX: Double { width + x }
-        var center: Position { .init(x: midX, y: midY) }
     }
 
     private struct Row {
