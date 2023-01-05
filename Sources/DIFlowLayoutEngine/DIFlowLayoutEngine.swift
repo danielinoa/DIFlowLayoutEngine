@@ -38,7 +38,7 @@ public struct DIFlowLayoutEngine {
     /// Returns the positions of the items within the specified bounds,
     /// and the height require to fit all items within the bounds.
     public func position(of items: [Rectangle], in bounds: Rectangle) -> Layout {
-        let (rows, totalHeight) = rows(
+        let (rows, fittingHeight) = rows(
             from: items, in: bounds, horizontalSpacing: horizontalSpacing, verticalSpacing: verticalSpacing
         )
         var positions: [Position] = []
@@ -46,7 +46,7 @@ public struct DIFlowLayoutEngine {
             let itemPositions = self.positions(for: row, in: bounds)
             positions.append(contentsOf: itemPositions)
         }
-        return .init(fittingHeight: totalHeight, positions: positions)
+        return .init(fittingHeight: fittingHeight, positions: positions)
     }
 
     private func positions(for row: Row, in bounds: Rectangle) -> [Position] {
@@ -76,7 +76,7 @@ public struct DIFlowLayoutEngine {
     /// and the specified spacing.
     private func rows(
         from items: [Rectangle], in bounds: Rectangle, horizontalSpacing: Double, verticalSpacing: Double
-    ) -> (rows: [Row], totalHeight: Double) {
+    ) -> (rows: [Row], fittingHeight: Double) {
         var items = items
         var rows: [Row] = []
         while !items.isEmpty {
@@ -96,8 +96,8 @@ public struct DIFlowLayoutEngine {
             rows.append(row)
         }
         let verticalGapsCount = rows.count > 1 ? rows.count - 1 : .zero
-        let totalHeight = rows.map(\.height).reduce(.zero, +) + (Double(verticalGapsCount) * verticalSpacing)
-        return (rows, totalHeight)
+        let fittingHeight = rows.map(\.height).reduce(.zero, +) + (Double(verticalGapsCount) * verticalSpacing)
+        return (rows, fittingHeight)
     }
 
     // MARK: - In-Row Vertical Positioning
