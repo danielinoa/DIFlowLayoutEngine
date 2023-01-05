@@ -157,10 +157,16 @@ public struct DIFlowLayoutEngine {
     }
 
     public struct Rectangle: Equatable {
-        var x: Double, y: Double, width: Double, height: Double
+        public var x: Double, y: Double, width: Double, height: Double
         var minY: Double { y }
         var minX: Double { x }
         var maxX: Double { width + x }
+        public init(x: Double, y: Double, width: Double, height: Double) {
+            self.x = x
+            self.y = y
+            self.width = width
+            self.height = height
+        }
     }
 
     private struct Row {
