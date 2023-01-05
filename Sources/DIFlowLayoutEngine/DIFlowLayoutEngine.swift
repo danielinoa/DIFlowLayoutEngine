@@ -74,14 +74,15 @@ public struct DIFlowLayoutEngine {
             let topOffset = rows.last.map { $0.topOffset + $0.height + verticalSpacing  } ?? bounds.minY
             var row = Row(topOffset: topOffset)
             var isOverflown = false
+            var leadingOffset = bounds.minX
             while (!isOverflown && !items.isEmpty) {
                 let item = items.removeFirst()
                 row.items.append(item)
                 row.totalItemsWidth += item.width
                 row.height = max(row.height, item.height)
-                let currentLeadingOffset = row.items.last.map { $0.width + horizontalSpacing } ?? bounds.minX
                 let nextItem = items.first
-                isOverflown = nextItem.map { (currentLeadingOffset + $0.width) > bounds.maxX } ?? false
+                leadingOffset += item.width + horizontalSpacing
+                isOverflown = nextItem.map { (leadingOffset + $0.width) > bounds.maxX } ?? false
             }
             rows.append(row)
         }

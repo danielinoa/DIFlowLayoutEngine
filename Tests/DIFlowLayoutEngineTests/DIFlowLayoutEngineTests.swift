@@ -97,6 +97,20 @@ final class DIFlowLayoutEngineTests: XCTestCase {
         XCTAssertEqual(item3Position, .init(x: 90, y: 40))
         XCTAssertEqual(layout.fittingHeight, 70)
     }
+
+    func testFourthItemBreaksIntoSecondRow() {
+        let engine = DIFlowLayoutEngine(horizontalSpacing: 10, verticalSpacing: 10)
+        let item1 = Rectangle(width: 100, height: 40)
+        let item2 = Rectangle(width: 100, height: 40)
+        let item3 = Rectangle(width: 100, height: 40)
+        let item4 = Rectangle(width: 100, height: 40)
+        let bounds = Rectangle(width: 375, height: 100)
+        let layout = engine.position(of: [item1, item2, item3, item4], in: bounds)
+
+        XCTAssertEqual(layout.positions.count, 4)
+        XCTAssertEqual(layout.positions[3], .init(x: 0, y: 50))
+        XCTAssertEqual(layout.fittingHeight, 90)
+    }
 }
 
 extension DIFlowLayoutEngine.Rectangle {
