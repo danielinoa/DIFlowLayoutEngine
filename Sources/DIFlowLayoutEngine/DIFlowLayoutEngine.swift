@@ -104,7 +104,7 @@ public struct DIFlowLayoutEngine {
         return bounds.minX + shift
     }
 
-    // MARK: - Public Types
+    // MARK: - Types
 
     public struct Layout {
 
@@ -150,8 +150,6 @@ public struct DIFlowLayoutEngine {
         var maxX: Double { width + x }
         var center: Position { .init(x: midX, y: midY) }
     }
-
-    // MARK: - Auxiliary Types
 
     private struct Row {
 
