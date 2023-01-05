@@ -125,10 +125,10 @@ public struct DIFlowLayoutEngine {
     public struct Layout {
 
         /// The height require to fit all items, based on the width of the bounds originally passed in.
-        let fittingHeight: Double
+        public let fittingHeight: Double
 
         /// The position of the items within fitting height and the bounds' width.
-        let positions: [Position]
+        public let positions: [Position]
     }
 
     /// The direction items flow within a row.
@@ -153,7 +153,7 @@ public struct DIFlowLayoutEngine {
     }
 
     public struct Position: Equatable {
-        var x: Double, y: Double
+        public var x: Double, y: Double
     }
 
     public struct Rectangle: Equatable {
