@@ -80,7 +80,7 @@ public struct DIFlowLayoutEngine {
         var items = items
         var rows: [Row] = []
         while !items.isEmpty {
-            let topOffset = rows.last.map { $0.topOffset + $0.height + verticalSpacing  } ?? bounds.minY
+            let topOffset = rows.last.map { $0.topOffset + $0.height + verticalSpacing } ?? bounds.minY
             var row = Row(topOffset: topOffset)
             var isOverflown = false
             var leadingOffset = bounds.minX
